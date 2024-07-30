@@ -1,64 +1,73 @@
-import {useState, useCallback, useMemo} from "react";
-
+import { useState, useCallback, useMemo } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { debounce } from "../utils";
-import {Book, BooksType, Item} from "../types"
 
+type Book = {
+  id: string;
+  title: string;
+  authors: string[];
+};
 
-const useBooks = () : BooksType => {
-    const [books, setBooks] = useState([] as Book[]);
-    const [query, setQuery] = useState("");
-    const [loading, setLoading] = useState(false);
+type BooksType = {
+  books: Book[];
+  updateSearchQuery: (newQuery: string) => void;
+  loading: boolean;
+  query: string;
+};
 
-    const formatBook = (book: Item): Book => {
-        return {
-            id: book.id,
-            title: book.volumeInfo.title,
-            authors: book.volumeInfo.authors,
-        }
-    }
+const useBooks = (): BooksType => {
+  const [query, setQuery] = useState('');
 
-    const fetchBooks = useCallback(async (term: string) => {
-        setLoading(true);
-        if (!term.trim().length) {
-            setBooks([]);
-            setLoading(false);
-            return;
-        }
-        try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}${term}&key=${process.env.REACT_APP_BOOK_API_KEY}`, {
-                cache: 'force-cache',
-                headers: {
-                    'Cache-Control': 'max-age=3600',
-                },
-            });
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const data = await response.json();
-            const formattedBooks = data.items.map((book: Item) => formatBook(book));
-            setBooks(formattedBooks);
-        } catch (error) {
-            console.error('Fetching books failed:', error);
-        } finally {
-            setLoading(false);
-        }
-    }, []);
-
-
-    const debouncedFetchBooks = useMemo(() => debounce(fetchBooks, 300), [fetchBooks]);
-
-    const updateSearchQuery = useCallback((newQuery: string) => {
-        setQuery(newQuery);
-        debouncedFetchBooks(newQuery);
-    },[debouncedFetchBooks])
-
-
+  const formatBook = (book: any): Book => {
     return {
-        books,
-        updateSearchQuery,
-        loading,
-        query,
+      id: book.id,
+      title: book.volumeInfo.title,
+      authors: book.volumeInfo.authors,
+    };
+  };
+
+  const fetchBooks = async (term: string): Promise<Book[]> => {
+    const response = await fetch(
+      `${process.env.REACT_APP_API_URL}${term}&key=${process.env.REACT_APP_BOOK_API_KEY}`,
+      {
+        cache: 'force-cache',
+        headers: {
+          'Cache-Control': 'max-age=3600',
+        },
+      }
+    );
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
     }
-}
+    const data = await response.json();
+    return data.items.map((book: any) => formatBook(book));
+  };
+
+
+  const { data: books = [], isLoading: loading } = useQuery({
+     queryKey: ['books', query],
+     queryFn: () => fetchBooks(query),
+     enabled: !!query.trim().length,     
+  });
+
+  const debouncedFetchBooks = useMemo(
+    () => debounce(setQuery, 300),
+    []
+  );
+
+  const updateSearchQuery = useCallback(
+    (newQuery: string) => {
+      debouncedFetchBooks(newQuery);
+    },
+    [debouncedFetchBooks]
+  );
+
+  return {
+    books,
+    updateSearchQuery,
+    loading,
+    query,
+  };
+};
 
 export default useBooks;

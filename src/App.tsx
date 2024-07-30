@@ -4,6 +4,8 @@ import BookProvider from './components/Providers/BooksProvider';
 import SearchBooksBar from './components/SearchBooksBar';
 import BookList from './components/BookList';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
 
 const queryClient = new QueryClient();
 
@@ -16,6 +18,7 @@ function App() {
           <BookList/>
         </div>
       </BookProvider>
+      <ReactQueryDevtools />
     </QueryClientProvider>
   );
 }
