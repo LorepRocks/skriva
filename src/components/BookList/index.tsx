@@ -1,13 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { BooksContext } from "../../contexts/BooksContext";
 import { Book } from "../../types";
-import {
-  Image,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalHeader,
-} from "@nextui-org/react";
+import { Image } from "@nextui-org/react";
 
 import "./bookList.css";
 import BookInfoModal from "../BookInfo";

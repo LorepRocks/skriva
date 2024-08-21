@@ -7,12 +7,23 @@ import { Book } from "../../types";
 
 describe("BookList", () => {
   const mockBooks: Book[] = [
-    { id: "1", title: "Test Book 1", authors: ["Author 1"], image: "" },
+    {
+      id: "1",
+      title: "Test Book 1",
+      authors: ["Author 1"],
+      image: "",
+      pages: 60,
+      publishedDate: "2020-10-09",
+      rating: 3.5,
+    },
     {
       id: "2",
       title: "Another Test Book",
       authors: ["Author 2", "Author 3"],
       image: "",
+      pages: 60,
+      publishedDate: "2020-10-09",
+      rating: 3.5,
     },
   ];
 

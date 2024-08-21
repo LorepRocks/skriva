@@ -10,6 +10,9 @@ export interface Book {
   title: string;
   authors: string[];
   image: string;
+  publishedDate: string;
+  pages: number;
+  rating: number;
 }
 
 export interface ApiBookType {
@@ -29,4 +32,7 @@ export interface VolumeInfo {
   title: string;
   authors: string[];
   imageLinks: ImageLinks;
+  publishedDate: string;
+  pageCount: number;
+  averageRating: number;
 }

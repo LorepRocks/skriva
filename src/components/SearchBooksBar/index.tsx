@@ -17,17 +17,17 @@ const SearchBooksBar = () => {
   };
 
   return (
-    <div className="h-4">
-      <Input
-        className="h-fit w-96 text-lg"
-        radius="lg"
-        isClearable
-        placeholder="Search for a book..."
-        value={query}
-        onChange={(e) => handleChange(e.target.value)}
-        onClear={() => handleChange("")}
-      />
-    </div>
+    <Input
+      className="w-screen px-5 text-xl"
+      radius="lg"
+      height={80}
+      size="lg"
+      isClearable
+      placeholder="Search for a book..."
+      value={query}
+      onChange={(e) => handleChange(e.target.value)}
+      onClear={() => handleChange("")}
+    />
   );
 };
 

@@ -12,6 +12,9 @@ const useBooks = (): BooksType => {
       title: book.volumeInfo.title,
       authors: book.volumeInfo.authors,
       image: book.volumeInfo?.imageLinks?.thumbnail || "",
+      publishedDate: book.volumeInfo?.publishedDate,
+      pages: book.volumeInfo.pageCount,
+      rating: book.volumeInfo.averageRating || 0,
     };
   };
 

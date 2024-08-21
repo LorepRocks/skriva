@@ -9,6 +9,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        "bg-info": "rgba(254,254,254,0.7)",
+      },
       height: {
         120: "120px",
         25: "25rem",
