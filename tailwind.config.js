@@ -10,6 +10,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        default: "#000",
         "bg-info": "rgba(254,254,254,0.7)",
       },
       height: {

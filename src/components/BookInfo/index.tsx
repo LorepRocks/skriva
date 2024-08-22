@@ -7,6 +7,10 @@ import {
   ModalHeader,
   Image,
   Divider,
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
 } from "@nextui-org/react";
 import { Book } from "../../types";
 
@@ -43,8 +47,8 @@ const BookInfoModal = ({ book, openModal, onCloseModal }: Props) => {
             </ModalHeader>
             <ModalBody className="flex text-sm flex-row justify-around mb-5">
               <div className="flex flex-col items-center">
-                <span>Published</span>
-                <span className="text-xs mt-2">{book.publishedDate}</span>
+                <span className="text-xs">Published</span>
+                <span className="text-sm mt-2">{book.publishedDate}</span>
               </div>
               <Divider
                 orientation="vertical"
@@ -52,8 +56,8 @@ const BookInfoModal = ({ book, openModal, onCloseModal }: Props) => {
               />
 
               <div className="flex flex-col items-center">
-                <span>Pages</span>
-                <span className="text-xs mt-2">{book.pages}</span>
+                <span className="text-xs">Pages</span>
+                <span className="text-sm mt-2">{book.pages}</span>
               </div>
               <Divider
                 orientation="vertical"
@@ -61,21 +65,27 @@ const BookInfoModal = ({ book, openModal, onCloseModal }: Props) => {
               />
 
               <div className="flex flex-col items-center">
-                <span>Rating</span>
-                <span className="text-xs mt-2">{book.rating}</span>
+                <span className="text-xs">Rating</span>
+                <span className="text-sm mt-2">{book.rating}</span>
               </div>
             </ModalBody>
             <ModalFooter>
-              <Button color="danger" variant="light" onClick={onClose}>
-                Close
-              </Button>
-              <Button
-                color="secondary"
-                className="w-full mb-5"
-                onPress={onClose}
-              >
-                Save
-              </Button>
+              <Dropdown>
+                <DropdownTrigger>
+                  <Button
+                    color="default"
+                    className="w-full mb-5 text-white"
+                    onPress={onClose}
+                  >
+                    Save
+                  </Button>
+                </DropdownTrigger>
+                <DropdownMenu aria-label="Static Actions" className="p-0 m-0">
+                  <DropdownItem key="read">Want to Read</DropdownItem>
+                  <DropdownItem key="reading">Reading</DropdownItem>
+                  <DropdownItem key="recommended">Recommended</DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
             </ModalFooter>
           </>
         )}
