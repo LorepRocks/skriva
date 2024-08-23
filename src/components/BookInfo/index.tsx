@@ -25,7 +25,7 @@ const BookInfoModal = ({ book, openModal, onCloseModal }: Props) => {
       isOpen={openModal}
       onClose={onCloseModal}
       backdrop="blur"
-      className="w-full h-9/12 absolute bottom-0 rounded-none rounded-t-3xl m-0"
+      className="w-full h-9/12 absolute bottom-0 rounded-none rounded-t-3xl m-0 md:rounded-lg md:relative"
       placement="center"
     >
       <ModalContent className="bg-bg-info ">
@@ -70,20 +70,34 @@ const BookInfoModal = ({ book, openModal, onCloseModal }: Props) => {
               </div>
             </ModalBody>
             <ModalFooter>
-              <Dropdown>
+              <Dropdown backdrop="opaque" className="pr-5">
                 <DropdownTrigger>
                   <Button
-                    color="default"
-                    className="w-full mb-5 text-white"
+                    className="w-full mb-5 text-white bg-black"
                     onPress={onClose}
                   >
-                    Save
+                    Save to Bookshelf
                   </Button>
                 </DropdownTrigger>
-                <DropdownMenu aria-label="Static Actions" className="p-0 m-0">
-                  <DropdownItem key="read">Want to Read</DropdownItem>
-                  <DropdownItem key="reading">Reading</DropdownItem>
-                  <DropdownItem key="recommended">Recommended</DropdownItem>
+                <DropdownMenu aria-label="Static Actions" variant="solid">
+                  <DropdownItem
+                    key="read"
+                    className="px-1 rounded-none border-b-0 font-semibold w-full"
+                  >
+                    Want to Read
+                  </DropdownItem>
+                  <DropdownItem
+                    className="px-1 rounded-none border-b-0"
+                    key="reading"
+                  >
+                    I'm Reading
+                  </DropdownItem>
+                  <DropdownItem
+                    className="px-1 rounded-none border-b-0"
+                    key="recommended"
+                  >
+                    Recommended
+                  </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
             </ModalFooter>

@@ -18,9 +18,8 @@ const SearchBooksBar = () => {
 
   return (
     <Input
-      className="w-screen px-5 text-xl"
+      className="w-screen px-5 text-xl md:w-2/6 md:mt-5 md:px-0"
       radius="lg"
-      height={80}
       size="lg"
       isClearable
       placeholder="Search for a book..."

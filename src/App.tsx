@@ -15,7 +15,10 @@ function App() {
     <NextUIProvider>
       <QueryClientProvider client={queryClient}>
         <BookProvider>
-          <div className="h-full w-full flex items-center mt-10 flex-col">
+          <div
+            className="h-full w-full flex items-center mt-10 flex-col"
+            data-test="main-container"
+          >
             <SearchBooksBar />
             <BookList />
           </div>
