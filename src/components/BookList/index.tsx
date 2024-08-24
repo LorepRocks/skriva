@@ -25,7 +25,7 @@ const BookList = () => {
     return () => {
       document.removeEventListener("mousedown", handleMouseDown);
     };
-  }, []);
+  }, [updateSearchQuery]);
 
   const onCloseModal = () => {
     setOpenModal(false);
