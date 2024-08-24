@@ -1,28 +1,20 @@
 import { useState, useCallback, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { debounce } from "../utils";
-
-type Book = {
-  id: string;
-  title: string;
-  authors: string[];
-};
-
-type BooksType = {
-  books: Book[];
-  updateSearchQuery: (newQuery: string) => void;
-  loading: boolean;
-  query: string;
-};
+import { ApiBookType, Book, BooksType, Item } from "../types";
 
 const useBooks = (): BooksType => {
   const [query, setQuery] = useState("");
 
-  const formatBook = (book: any): Book => {
+  const formatBook = (book: Item): Book => {
     return {
       id: book.id,
       title: book.volumeInfo.title,
       authors: book.volumeInfo.authors,
+      image: book.volumeInfo?.imageLinks?.thumbnail || "",
+      publishedDate: book.volumeInfo?.publishedDate,
+      pages: book.volumeInfo.pageCount,
+      rating: book.volumeInfo.averageRating || 0,
     };
   };
 
@@ -39,8 +31,8 @@ const useBooks = (): BooksType => {
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
-    const data = await response.json();
-    return data.items.map((book: any) => formatBook(book));
+    const data: ApiBookType = await response.json();
+    return data.items.map((book: Item) => formatBook(book));
   };
 
   const { data: books = [], isLoading: loading } = useQuery({
